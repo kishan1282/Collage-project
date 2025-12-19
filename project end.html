@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Nursery Store</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5fff5;
+        }
+        
+        /* UPDATED NAVIGATION BAR */
+        nav {
+            background: #183d1a;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;   /* SHIFT ITEMS TO RIGHT */
+            margin: 0;
+            padding: 0 30px;
+        }
+        nav ul li {
+            margin: 0 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        /* HOME SECTION */
+         .hero {
+            text-align: center;
+            padding: 150px 50px;
+            background: url('nursery.jpeg') 
+            no-repeat center/cover;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .hero h1 {
+            font-size: 55px;
+            text-shadow: 2px 2px 5px #000;
+        }
+        .hero p {
+            font-size: 26px;
+            margin-top: 20px;
+            color: black;
+            font-weight: bold;
+            background: rgba(255,255,255,0.6);
+            padding: 10px 20px;
+            display:inline-block;
+            border-radius: 10px;
+        }
+
+        /* UPDATED SHOP BUTTON (MEDIUM SIZE) */
+        .small-shop-btn{
+            padding: 15px 35px;    /* smaller */
+            font-size: 20px;       /* Medium text */
+            background: #4fc055;
+            color: black;
+            text-decoration: none;
+            border-radius: 25px;
+            margin-top: 30px;
+            display: inline-block;
+            font-weight: bold;
+        }
+        .small-shop-btn:hover {
+            background: #193a1a;
+        }
+        /* SEARCH BAR */
+.search-box {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#searchInput {
+    width: 50%;
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 2px solid #4CAF50;
+    outline: none;
+}
+
+#searchInput:focus {
+    border-color: #2e7d32;
+}
+
+
+        /* SECTIONS */
+        section {
+            padding: 40px;
+        }
+
+        /* PRODUCT GRID */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        .product-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+            text-align: center;
+        }
+        .product-card img {
+            width: 100%;
+            border-radius: 10px;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-card h3 {
+            margin: 10px 0;
+        }
+        .price {
+            color: green;
+            font-weight: bold;
+        }
+
+        /* REVIEW SECTION */
+        .review-box {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px #ccc;
+        }
+        .review-box h3 {
+            color: #ff9800;
+            font-size: 22px;
+        }
+        .review-box p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* CART TABLE */
+        table {
+            width: 70%;
+            border-collapse: collapse;
+            background: rgb(247, 227, 227);
+            box-shadow: 0 0 10px #ccc;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 15px;
+            text-align: center;
+        }
+        th {
+            background: #42e44a;
+        }
+        /* PAYMENT METHODS */
+.qty-btn {
+    padding: 6px 12px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.qty-btn:hover {
+    transform: scale(1.1);
+    background: #1b5e20;
+}
+
+.delete-btn {
+    background: red;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.delete-btn:hover {
+    background: darkred;
+    transform: scale(1.1);
+}
+
+.cart-msg {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #4CAF50;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 8px;
+    display: none;
+}
+
+
+        /* CONTACT */
+        .contact-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+            width: 60%;
+            margin: auto;
+        }
+        .contact-box input, .contact-box textarea {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #2e7d32;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#cart">Cart</a></li>
+        <li><a href="#login">Login</a></li>
+        
+        
+    </ul>
+</nav>
+
+<!-- HOME SECTION -->
+<section id="home">
+    <div class="hero">
+        <h1> Welcome to GreenLeaf Nursery</h1>
+        <p>Your one-step shop for indoor & outdoor plants</p>
+        <a href="#products" class="small-shop-btn">Shop Now</a>
+    </div>
+</section>
+
+<!-- ABOUT US SECTION -->
+<section id="about">
+    <h2 style="text-align:center; margin-bottom:25px;">About Us</h2>
+
+    <div style="
+        background:white;
+        padding:30px;
+        border-radius:10px;
+        width:80%;
+        margin:auto;
+        box-shadow:0 0 10px #ccc;
+        line-height:1.7;
+        font-size:18px;">
+        
+        <p>
+            Welcome to <b>GreenLeaf Nursery</b>, your trusted destination for fresh, healthy, and 
+            affordable plants. We specialize in indoor plants, outdoor plants, medicinal herbs, 
+            and flowering plants – all grown with care in our eco-friendly nursery.
+        </p>
+
+        <p>
+            Our mission is to bring nature closer to your home by offering premium-quality plants, 
+            safe paper packaging(which is ecofriendly), timely delivery, and excellent customer support.
+        </p>
+
+        <p>
+            With over 500+ happy customers across India, GreenLeaf Nursery continues to grow 
+            with love, trust, and passion for greenery.
+        </p>
+    </div>
+</section>
+
+       
+<!-- PRODUCTS SECTION -->
+<section id="products">
+    <h2 style="text-align:center; margin-bottom:10px;">Our Plants</h2>
+
+    <!-- SEARCH BAR -->
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search plants..." onkeyup="searchProducts()">
+    </div>
+
+    <div class="products">
+
+        <!-- Each product must have class="product" -->
+         
+        <div class="product-card">
+            <img src="SNAKE PLANT.jpeg">
+            <h3>Snake Plant</h3>
+            <p class="price">₹350</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="MONEY PLANT.jpg">
+            <h3>Money Plant</h3>
+            <p class="price">₹250</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="ALOE VERA.webp">
+            <h3>Aloe Vera</h3>
+            <p class="price">₹180</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="SAMI.jpeg">
+            <h3>sami Plant</h3>
+            <p class="price">₹180</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+
+        <!-- New Flowering Plants -->
+        <div class="product-card">
+            <img src="ROSE.webp">
+            <h3>Rose Plant</h3>
+            <p class="price">₹120</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="MARIGOLD.jpg">
+            <h3>Marigold Plant</h3>
+            <p class="price">₹100</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="SUN.jpg">
+            <h3>Sunflower Plant</h3>
+            <p class="price">₹90</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+         
+         <div class="product-card">
+            <img src="DAHLIAS.jpg">
+            <h3>dahlias Plant</h3>
+            <p class="price">₹90</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+
+        <!-- Medicinal Herbs -->
+        <div class="product-card">
+            <img src="TULSI.jpeg">
+            <h3>Tulsi Plant</h3>
+            <p class="price">₹80</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="NEEM.jpeg">
+            <h3>Neem Plant</h3>
+            <p class="price">₹160</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="MINT.jpg">
+            <h3>Mint Herb</h3>
+            <p class="price">₹50</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="MARY.jpeg">
+            <h3>rose mary</h3>
+            <p class="price">₹250</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+
+    </div>
+</section>
+
+    
+
+<!-- REVIEWS SECTION -->
+<section id="reviews">
+    <h2 style="text-align:center; margin-bottom:25px;">Customer Reviews</h2>
+
+    <div class="review-box">
+        <span class="review-detail">Reviewed by: **Rohan Kumar** | October 12, 2025</span>
+        <p>“I ordered 5 plants including Tulsi and Snake Plant.  
+        Packaging was excellent, leaves fresh and green. Highly recommended! The care instructions were clear, and the plants have settled perfectly in my balcony garden.”</p>
+    </div>
+
+    <div class="review-box">
+        <span class="review-detail">Reviewed by: **Kavita Singh** | November 01, 2025</span>
+        <p>“Plants were delivered on time and very healthy.  
+        Customer service is polite and helpful. Great experience overall. The Money Plant was slightly smaller than expected, but still very healthy.”</p>
+    </div>
+
+    <div class="review-box">
+        <span class="review-detail">Reviewed by: **Neha Sharma** | September 25, 2025</span>
+        <p>“I bought Rose, Mint, and Neem.  
+        All are growing beautifully. Quality is much better than local nurseries. I am particularly impressed with the fragrance of the fresh Mint herb.”</p>
+    </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact">
+    <h2 style="text-align:center; margin-bottom:20px;">Contact Us</h2>
+
+    <div class="contact-box">
+        <input type="text" placeholder="Enter your name">
+        <input type="email" placeholder="Enter your email">
+        <textarea rows="5" placeholder="Write your message"></textarea>
+        <button class="btn">Send Message</button>
+    </div>
+</section>
+
+
+<!-- CART SECTION -->
+<section id="cart" style="padding:40px 20px;">
+    <h2 style="text-align:center; margin-bottom:20px;">Your Cart</h2>
+
+    <div class="cart-container">
+
+        <!-- Cart Item 1 -->
+        <div class="cart-item">
+            <img src="ALOE VERA.webp" alt="Aloe Vera">
+            
+            <div class="cart-details">
+                <h3>Aloe Vera</h3>
+                <p>Price: ₹150</p>
+
+                <div class="qty-box">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                </div>
+            </div>
+
+            <div class="cart-price">
+                <p>₹150</p>
+                <button class="remove-btn">Remove</button>
+            </div>
+        </div>
+
+        <!-- Cart Item 2 -->
+        <div class="cart-item">
+            <img src="NEEM.jpeg" alt="neem">
+            
+            <div class="cart-details">
+                <h3>neem</h3>
+                <p>Price: ₹160</p>
+
+                <div class="qty-box">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                </div>
+            </div>
+
+            <div class="cart-price">
+                <p>₹150</p>
+                <button class="remove-btn">Remove</button>
+            </div>
+        </div>
+        <!-- Cart Total Box -->
+        <div class="cart-total">
+            <h3>Total Amount: ₹</h3>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+
+    </div>
+</section>
+
+
+    
+<!-- LOGIN SECTION -->
+<section id="login" style="padding:40px 20px;">
+    <h2 style="text-align:center; margin-bottom:20px;">Login</h2>
+
+    <div class="login-box" style="
+        width: 350px;
+        margin: auto;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #ccc;">
+        
+        <h3 style="text-align:center; margin-bottom:20px; color:#2e7d32;">Welcome Back</h3>
+
+        <input type="text" placeholder="Enter Username" 
+               style="width:95%; padding:12px; margin-bottom:15px; border:1px solid #aaa; border-radius:5px;">
+
+        <input type="password" placeholder="Enter Password"
+               style="width:95%; padding:12px; margin-bottom:20px; border:1px solid #aaa; border-radius:5px;">
+
+        <button class="btn" style="
+                width:100%; 
+                padding:12px;
+                background:#2e7d32; 
+                color:white; 
+                font-size:18px;
+                border:none; 
+                border-radius:5px;
+                cursor:pointer;">
+            Login
+        </button>
+
+        <p style="margin-top:15px; text-align:center;">
+            Don't have an account? <a href="#" style="color:#2e7d32; font-weight:bold;">Sign Up</a>
+        </p>
+    </div>
+</section>
+
+<footer>
+    © 2025 GreenLeaf Nursery | All Rights Reserved
+</footer>
+
+<script>
+function searchProducts() {
+    let filter = document.getElementById("searchInput").value.toLowerCase();
+    let products = document.getElementsByClassName("product-card");  // FIXED
+
+    for (let i = 0; i < products.length; i++) {
+        let name = products[i].getElementsByTagName("h3")[0].innerText.toLowerCase();
+
+        if (name.includes(filter)) {
+            products[i].style.display = "block";   // show match
+        } else {
+            products[i].style.display = "none";    // hide non-match
+        }
+}
+}
+</script>
+<script>
+let cart = [];
+
+function showMsg(text) {
+    let msg = document.getElementById("cartMsg");
+    msg.innerText = text;
+    msg.style.display = "block";
+
+    setTimeout(() => {
+        msg.style.display = "none";
+    }, 1500);
+}
+
+function placeOrder() {
+    let selectedOption = document.querySelector('input[name="option"]:checked');
+    let paymentMethod = document.querySelector('input[name="payment"]:checked');
+
+    if (!selectedOption) {
+        alert("Please select Option A/B/C");
+        return;
+    }
+
+    if (!paymentMethod) {
+        alert("Please select a Mode of Payment");
+        return;
+    }
+
+    alert(
+        "Order Placed Successfully!\n\n" +
+        "Selected Option: " + selectedOption.value +
+        "\nPayment Method: " + paymentMethod.value
+    );
+}
+</script>
+
+</body>
+</html>
